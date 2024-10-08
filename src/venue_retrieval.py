@@ -46,7 +46,6 @@ def get_venues(query, location):
         'Content-Type': 'application/json',
         'X-Goog-Api-Key': GOOGLE_PLACES_API_KEY,
         'X-Goog-FieldMask': 'places.displayName,places.websiteUri'
-
     }
 
     data = {
