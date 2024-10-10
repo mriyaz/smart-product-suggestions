@@ -2,7 +2,7 @@ import re
 import csv
 import json
 import logging
-from utils import parse_with_chatgpt
+from src.utils import parse_with_chatgpt
 
 # Configure logging
 logging.basicConfig(level=logging.INFO,
@@ -62,10 +62,11 @@ def match_products_venue(venue, products):
     :param products: List of product names
     :return: Dictionary of matched products for the venue
     """
-    prompt = f"Given the following venues (names) and their ingredients, along with the product catalogue, "\
-        f"match the ingredients to the products. If there is a match, format the output as a JSON object where the key is "\
-        f"the venue name and the value is a list of matched product names."\
-        f"\n\nVenue: {json.dumps(venue)}\n\nProducts: {products}"  
+    prompt = f"Given the following venue names and their ingredients, along with the product catalog, match the ingredients to "\
+        f"the products. If there is a match, either by direct match or through synonyms of the ingredients, format the output "\
+        f"as a JSON object. The key should be the venue name, and the value should be a list of matched product names based on "\
+        f"both exact and synonymous ingredient matches."\
+        f"\n\nVenue: {json.dumps(venue)}\n\nProducts: {products}"
     message = [
         {"role": "system", "content": "You are a helpful assistant that matches venue ingredients to suitable products."},
         {"role": "user", "content": prompt}

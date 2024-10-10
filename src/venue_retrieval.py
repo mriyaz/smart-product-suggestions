@@ -1,33 +1,13 @@
 # Import required libraries
-import configparser
+from dotenv import load_dotenv
 import json
 import requests
 import os
 
 # Load configuration
-config = configparser.ConfigParser()
-config_path = os.path.join(os.path.dirname(
-    os.path.dirname(__file__)), 'config.ini')
+load_dotenv()
 
-
-if not os.path.exists(config_path):
-    raise FileNotFoundError(f"Config file not found at {config_path}")
-
-config.read(config_path)
-
-if 'GooglePlaces' not in config:
-    raise KeyError("'GooglePlaces' section not found in config file")
-
-try:
-    GOOGLE_PLACES_API_KEY = config['GooglePlaces']['api_key']
-except KeyError:
-    raise KeyError(
-        "'api_key' not found in 'GooglePlaces' section of config file")
-
-if not GOOGLE_PLACES_API_KEY:
-    raise ValueError("Google Places API key is empty")
-
-print("API key loaded successfully")
+GOOGLE_PLACES_API_KEY = os.getenv('google_api_key')
 
 # Define constants
 GOOGLE_PLACES_API_URL = "https://places.googleapis.com/v1/places:searchText"

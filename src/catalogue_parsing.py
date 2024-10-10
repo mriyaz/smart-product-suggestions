@@ -3,7 +3,7 @@ import json
 import PyPDF2
 import logging
 from typing import List, Dict
-from utils import parse_with_chatgpt
+from src.utils import parse_with_chatgpt
 
 # Configure logging
 logging.basicConfig(level=logging.INFO,
@@ -14,24 +14,28 @@ logger = logging.getLogger(__name__)
 def chunk_text(text: str, max_chunk_size: int = 5000) -> List[str]:
     """
     Split the text into chunks of approximately max_chunk_size characters.
-
     Args:
         text (str): The input text to be chunked.
         max_chunk_size (int): The maximum size of each chunk.
-
     Returns:
         List[str]: A list of text chunks.
     """
     chunks = []
     current_chunk = ""
-    for line in text.split("\n"):
-        if len(current_chunk) + len(line) < max_chunk_size:
-            current_chunk += line + "\n"
-        else:
+
+    # Split text by whitespace and process each word
+    for word in text.split():
+        # If adding the next word would exceed max_chunk_size, store the current chunk
+        if len(current_chunk) + len(word) + 1 > max_chunk_size:  # +1 accounts for the space
             chunks.append(current_chunk.strip())
-            current_chunk = line + "\n"
+            current_chunk = word + " "
+        else:
+            current_chunk += word + " "
+
+    # Append any remaining text in current_chunk
     if current_chunk:
         chunks.append(current_chunk.strip())
+
     return chunks
 
 

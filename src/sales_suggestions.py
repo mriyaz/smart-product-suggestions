@@ -1,7 +1,7 @@
 import streamlit as st
 import json
 import math
-from utils import parse_with_chatgpt
+from src.utils import parse_with_chatgpt
 import pandas as pd
 
 

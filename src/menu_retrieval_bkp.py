@@ -170,8 +170,16 @@ class Scraper:
                 """
 
                 content = "You are a helpful assistant that parses restaurant menus and returns the information in a valid JSON format."
+
+                message = [
+                    {
+                        "role": "system",
+                        "content": {content}
+                    },
+                    {"role": "user", "content": prompt}
+                ]
                 # Use parse_with_chatgpt() to parse the text
-                raw_menu = parse_with_chatgpt(prompt, content)
+                raw_menu = parse_with_chatgpt(message)
 
                 # Standardize and return the standardized menu
                 return self.standardize_menu(raw_menu)

@@ -15,7 +15,7 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.common.exceptions import TimeoutException, NoSuchElementException
-from utils import parse_with_chatgpt, save_json, load_json
+from src.utils import parse_with_chatgpt, save_json, load_json
 
 # Configure logging
 logging.basicConfig(level=logging.INFO,

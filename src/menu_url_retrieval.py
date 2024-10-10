@@ -65,7 +65,7 @@ def save_processed_venue(venue, file_path):
         processed_venues.append(venue)
     
     # Save the updated list back to the file
-    with open(file_path, 'w') as f:
+    with open(file_path, 'a') as f:
         json.dump(processed_venues, f, indent=2)
 
 def update_venues_with_menu_urls(input_file, output_file):
